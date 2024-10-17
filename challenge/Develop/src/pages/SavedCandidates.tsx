@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Candidate } from "../interfaces/Candidate.interface";
+
 
 const SavedCandidates = () => {
-    const [savedCandidates, setSavedCandidates] = useState<any[]>([]);
+    const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]);
 
     useEffect(() => {
         const storedCandidates = localStorage.getItem('savedCandidates');
@@ -27,7 +29,7 @@ const SavedCandidates = () => {
                         <li key={index}>
                             <img src={candidate.avatar_url} alt={`${candidate.name}'s avatar`} />
                             <p>{candidate.name} - {candidate.login}</p>
-                            <p>Location: {candidate.location}</p>
+                            <p>Location: {candidate.location || 'N/A'}</p>
                             <button onClick={() => removeCandidate(index)}>Remove</button>
                         </li>
                     ))}

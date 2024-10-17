@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { searchGithub } from '../api/API'; 
+import { Candidate } from "../interfaces/Candidate.interface";
+
 
 const CandidateSearch = () => {
-    const [candidate, setCandidate] = useState<any>(null); 
-
-    const [savedCandidates, setSavedCandidates] = useState<any[]>([]); 
+    const [candidate, setCandidate] = useState<Candidate | null>(null); 
+    const [savedCandidates, setSavedCandidates] = useState<Candidate[]>([]); 
 
     useEffect(() => {
         const fetchCandidate = async () => {
@@ -34,7 +35,7 @@ const CandidateSearch = () => {
                 <div>
                     <h2>{candidate.name}</h2>
                     <p>Username: {candidate.login}</p>
-                    <p>Location: {candidate.location}</p>
+                    <p>Location: {candidate.location || 'N/A'}</p>
                     <img src={candidate.avatar_url} alt={`${candidate.name}'s avatar`} />
                     <p>Email: {candidate.email || 'N/A'}</p> {/* Email might be undefined */}
                     <p>Company: {candidate.company || 'N/A'}</p> {/* Company might be undefined */}
