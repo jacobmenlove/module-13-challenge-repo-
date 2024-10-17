@@ -1,32 +1,30 @@
 import { useState, useEffect } from 'react';
-import { searchGithub } from '../api/API'; // Import your API function to fetch candidate data
+import { searchGithub } from '../api/API'; 
 
 const CandidateSearch = () => {
-    const [candidate, setCandidate] = useState<any>(null); // Replace 'any' with a specific type if you define one
-    const [savedCandidates, setSavedCandidates] = useState<any[]>([]); // Array to hold saved candidates
+    const [candidate, setCandidate] = useState<any>(null); 
 
-    // Fetch a candidate when the component mounts
+    const [savedCandidates, setSavedCandidates] = useState<any[]>([]); 
+
     useEffect(() => {
         const fetchCandidate = async () => {
-            const data = await searchGithub(); // Call your API function to fetch candidate
-            setCandidate(data); // Update the candidate state with the fetched data
+            const data = await searchGithub(); 
+            setCandidate(data); 
         };
         fetchCandidate();
     }, []);
 
-    // Save the current candidate to local storage
     const saveCandidate = () => {
         if (candidate) {
             const updatedList = [...savedCandidates, candidate];
             setSavedCandidates(updatedList);
-            localStorage.setItem('savedCandidates', JSON.stringify(updatedList)); // Save to local storage
+            localStorage.setItem('savedCandidates', JSON.stringify(updatedList)); 
         }
-        fetchNextCandidate(); // Fetch the next candidate after saving
+        fetchNextCandidate(); 
     };
 
-    // Fetch the next candidate
     const fetchNextCandidate = async () => {
-        const data = await searchGithub(); // Fetch the next candidate
+        const data = await searchGithub(); 
         setCandidate(data);
     };
 
